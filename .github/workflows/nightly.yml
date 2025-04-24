@@ -136,5 +136,5 @@ jobs:
           artifacts: "release-artifacts/*"
           body: "body"
           prerelease: false
-          name: "Release ${{ env.NOW }}"
+          name: "Nightly release ${{ env.NOW }}"
           tag: "nightly-${{ env.NOW_TAG }}"
