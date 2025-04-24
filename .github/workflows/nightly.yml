@@ -119,7 +119,7 @@ jobs:
           target: 'prevrelease/'
 
       - name: TODO COMPARE
-        run: echo "TODO: compare builds"
+        run: echo "test"
 
       - name: Set current date as env variable
         run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
