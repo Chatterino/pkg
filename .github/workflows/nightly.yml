@@ -132,9 +132,9 @@ jobs:
         run: |
           if ! 1>/dev/null diff -q release-artifacts/chatterino-x86_64-arch-linux.tar.gz prev-release/chatterino-x86_64-arch-linux.tar.gz; then
             echo "Arch Linux file differs"
-            echo "has_changes=true" >> $$GITHUB_OUTPUT
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           else
-            echo "has_changes=false" >> $$GITHUB_OUTPUT
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Create release
