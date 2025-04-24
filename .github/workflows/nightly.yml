@@ -95,16 +95,22 @@ jobs:
     steps:
       - name: Prepare
         run: |
-          mkdir prev-release
-          mkdir new-release
           echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
           echo "NOW_TAG=$(date +'%Y%m%dT%H%M%S')" >> $GITHUB_ENV
+
+          mkdir prev-release
+          mkdir release-artifacts
 
       - uses: actions/download-artifact@v4
         name: Arch Linux
         with:
           name: chatterino-x86_64-arch-linux.tar.gz
           path: release-artifacts/
+
+      - name: sha256sum release artifacts
+        run: |
+          sha256sum * > sha256-checksums.txt
+        working-directory: release-artifacts
 
       - id: prevrelease
         uses: pozetroninc/github-action-get-latest-release@master
@@ -141,5 +147,5 @@ jobs:
           artifacts: "release-artifacts/*"
           body: "body"
           prerelease: false
-          name: "test ${{ env.NOW }}"
+          name: "Release ${{ env.NOW }}"
           tag: "${{ env.NOW_TAG }}"
