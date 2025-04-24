@@ -47,28 +47,22 @@ jobs:
         run: mkdir build
         working-directory: chatterino
 
-      # - name: Configure
-      #   run: |
-      #     cmake \
-      #       -DCMAKE_BUILD_TYPE=Release \
-      #       -DBUILD_APP=On \
-      #       -DBUILD_TESTS=Off \
-      #       -DBUILD_BENCHMARKS=Off \
-      #       -DCHATTERINO_UPDATER=Off \
-      #       -DUSE_SYSTEM_QTKEYCHAIN=On \
-      #       -DSKIP_JSON_GENERATION=On \
-      #       ..
-      #   working-directory: chatterino/build
-
-      # - name: Build
-      #   run: |
-      #     cmake --build . -j $(nproc)
-      #   working-directory: chatterino/build
-
-      - name: Fake Build
+      - name: Configure
         run: |
-          mkdir -p bin
-          echo "test2" > bin/chatterino
+          cmake \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_APP=On \
+            -DBUILD_TESTS=Off \
+            -DBUILD_BENCHMARKS=Off \
+            -DCHATTERINO_UPDATER=Off \
+            -DUSE_SYSTEM_QTKEYCHAIN=On \
+            -DSKIP_JSON_GENERATION=On \
+            ..
+        working-directory: chatterino/build
+
+      - name: Build
+        run: |
+          cmake --build . -j $(nproc)
         working-directory: chatterino/build
 
       - name: Package
