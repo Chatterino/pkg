@@ -118,19 +118,16 @@ jobs:
           repo: 'Chatterino/pkg'
           version: ${{ steps.prevrelease.outputs.id }}
           file: "chatterino-x86_64-arch-linux.tar.gz"
-          target: 'prevrelease/'
+          target: 'prevrelease/chatterino-x86_64-arch-linux.tar.gz'
 
       - name: TODO COMPARE
-        run: echo "test"; tree .
+        run: |
+          tree .
 
       - name: Set current date as env variable
         run: |
           echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
           echo "NOW_TAG=$(date +'%Y%m%dT%H%M%S')" >> $GITHUB_ENV
-
-      - name: TODO COMPARE
-        run: |
-          printf "foo: '%s' bar" "${{ env.NOW }}"
 
       - name: Create release
         uses: ncipollo/release-action@v1.16.0
