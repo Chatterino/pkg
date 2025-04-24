@@ -1,9 +1,15 @@
 ---
-name: Nightly
+name: Stable
 
 on:
   pull_request:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Chatterino tag to pull'
+        default: 'v2.5.3'
+        required: true
+        type: string
   schedule:
     - cron: '0 0 * * *'
   push:
@@ -11,7 +17,7 @@ on:
       - main
 
 concurrency:
-  group: nightly-${{ github.ref }}
+  group: stable-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -42,22 +48,29 @@ jobs:
         run: mkdir build
         working-directory: chatterino
 
-      - name: Configure
-        run: |
-          cmake \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DBUILD_APP=On \
-            -DBUILD_TESTS=Off \
-            -DBUILD_BENCHMARKS=Off \
-            -DCHATTERINO_UPDATER=Off \
-            -DUSE_SYSTEM_QTKEYCHAIN=On \
-            -DSKIP_JSON_GENERATION=On \
-            ..
-        working-directory: chatterino/build
+      # - name: Configure
+      #   run: |
+      #     cmake \
+      #       -DCMAKE_BUILD_TYPE=Release \
+      #       -DBUILD_APP=On \
+      #       -DBUILD_TESTS=Off \
+      #       -DBUILD_BENCHMARKS=Off \
+      #       -DCHATTERINO_UPDATER=Off \
+      #       -DUSE_SYSTEM_QTKEYCHAIN=On \
+      #       -DSKIP_JSON_GENERATION=On \
+      #       ..
+      #   working-directory: chatterino/build
 
-      - name: Build
+      # - name: Build
+      #   run: |
+      #     cmake --build . -j $(nproc)
+      #   working-directory: chatterino/build
+      
+      - name: Fake Build
         run: |
-          cmake --build . -j $(nproc)
+          mkdir -p bin
+          echo "test" > bin/chatterino
+          echo "${{ inputs.tag }}"
         working-directory: chatterino/build
 
       - name: Package
@@ -137,4 +150,4 @@ jobs:
           body: "body"
           prerelease: false
           name: "Release ${{ env.NOW }}"
-          tag: "nightly-${{ env.NOW_TAG }}"
+          tag: "stable-${{ env.NOW_TAG }}"
