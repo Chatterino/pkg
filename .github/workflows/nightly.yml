@@ -89,7 +89,6 @@ jobs:
     needs: ["build-arch"]
     name: "Release"
     runs-on: ubuntu-latest
-    container: archlinux:base-devel
     strategy:
       fail-fast: false
 
@@ -101,6 +100,7 @@ jobs:
           path: release-artifacts/
 
       - id: prevrelease
+        continue-on-error: true
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           owner: Chatterino
@@ -109,6 +109,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: dsaltares/fetch-gh-release-asset@master
+        continue-on-error: true
         with:
           repo: 'Chatterino/pkg'
           version: ${{ steps.prevrelease.outputs.id }}
