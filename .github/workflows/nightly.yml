@@ -117,10 +117,13 @@ jobs:
           target: 'prevrelease/'
 
       - name: TODO COMPARE
-        run: echo "test"
+        run: echo "test"; tree .
 
       - name: Set current date as env variable
         run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+
+      - name: TODO COMPARE
+        run: printf "foo: '%s' bar" "$NOW"
 
       - name: Create release
         uses: ncipollo/release-action@v1.16.0
