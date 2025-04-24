@@ -20,6 +20,9 @@ concurrency:
   group: stable-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  CHATTERINO_TAG: ${{ inputs.tag != '' && inputs.tag || 'v2.5.3' }}
+
 jobs:
   build-arch:
     # needs: ["test-arch"]
@@ -70,7 +73,7 @@ jobs:
         run: |
           mkdir -p bin
           echo "test" > bin/chatterino
-          echo "${{ inputs.tag }}"
+          echo "${{ env.CHATTERINO_TAG }}"
         working-directory: chatterino/build
 
       - name: Package
