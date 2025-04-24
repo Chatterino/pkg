@@ -68,7 +68,7 @@ jobs:
       - name: Fake Build
         run: |
           mkdir -p bin
-          echo "test" > bin/chatterino
+          echo "test2" > bin/chatterino
         working-directory: chatterino/build
 
       - name: Package
