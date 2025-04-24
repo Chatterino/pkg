@@ -62,7 +62,7 @@ jobs:
 
       - name: Package
         run: |
-          tar czf chatterino-x86_64-arch-linux.tar.gz \
+          tar czf chatterino-arch-linux-x86_64.tar.gz \
             -C bin chatterino \
             -C ../../resources com.chatterino.chatterino.desktop \
             icon.png
@@ -71,8 +71,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: chatterino-x86_64-arch-linux.tar.gz
-          path: chatterino/build/chatterino-x86_64-arch-linux.tar.gz
+          name: chatterino-arch-linux-x86_64.tar.gz
+          path: chatterino/build/chatterino-arch-linux-x86_64.tar.gz
 
   release:
     needs: ["build-arch"]
@@ -93,7 +93,7 @@ jobs:
       - uses: actions/download-artifact@v4
         name: Arch Linux
         with:
-          name: chatterino-x86_64-arch-linux.tar.gz
+          name: chatterino-arch-linux-x86_64.tar.gz
           path: release-artifacts/
 
       - name: sha256sum release artifacts
@@ -113,13 +113,13 @@ jobs:
         with:
           repo: 'Chatterino/pkg'
           version: ${{ steps.prevrelease.outputs.id }}
-          file: "chatterino-x86_64-arch-linux.tar.gz"
-          target: 'prev-release/chatterino-x86_64-arch-linux.tar.gz'
+          file: "chatterino-arch-linux-x86_64.tar.gz"
+          target: 'prev-release/chatterino-arch-linux-x86_64.tar.gz'
 
       - name: Compare
         id: compare
         run: |
-          if ! 1>/dev/null diff -q release-artifacts/chatterino-x86_64-arch-linux.tar.gz prev-release/chatterino-x86_64-arch-linux.tar.gz; then
+          if ! 1>/dev/null diff -q release-artifacts/chatterino-arch-linux-x86_64.tar.gz prev-release/chatterino-arch-linux-x86_64.tar.gz; then
             echo "Arch Linux file differs"
             echo "has_changes=true" >> $GITHUB_OUTPUT
           else
