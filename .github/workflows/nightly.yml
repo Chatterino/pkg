@@ -132,4 +132,4 @@ jobs:
           body: ${{ steps.format-changes.outputs.changelog }}
           prerelease: true
           name: "test ${{ env.NOW }}"
-          tag: "test-${{ env.NOW }}"
+          tag: "2025-04-24"
