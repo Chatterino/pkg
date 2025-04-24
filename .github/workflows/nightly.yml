@@ -135,7 +135,7 @@ jobs:
           allowUpdates: false
           artifactErrorsFailBuild: true
           artifacts: "release-artifacts/*"
-          body: ${{ steps.format-changes.outputs.changelog }}
-          prerelease: true
+          body: "body"
+          prerelease: false
           name: "test ${{ env.NOW }}"
           tag: "${{ env.NOW_TAG }}"
