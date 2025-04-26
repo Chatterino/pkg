@@ -22,5 +22,5 @@ jobs:
           repo: pkg
           excludes: prerelease, draft
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: 'Stable'
+          title: 'Nightly'
           asset: 'chatterino-arch-linux-x86_64.tar.gz'
