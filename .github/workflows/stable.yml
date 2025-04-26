@@ -22,6 +22,7 @@ concurrency:
 
 env:
   CHATTERINO_TAG: ${{ inputs.tag != '' && inputs.tag || 'v2.5.3' }}
+  CHATTERINO_SKIP_DATE_GEN: 1
 
 jobs:
   build-arch:

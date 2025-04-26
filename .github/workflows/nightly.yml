@@ -14,6 +14,9 @@ concurrency:
   group: nightly-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  CHATTERINO_SKIP_DATE_GEN: 1
+
 jobs:
   build-arch:
     # needs: ["test-arch"]
