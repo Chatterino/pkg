@@ -79,16 +79,16 @@ jobs:
 
       - name: Package
         run: |
-          mkdir .packaging
-          cp chatterino/build/bin/chatterino .packaging/chatterino-arch-linux-x86_64
-          cp chatterino/resources/com.chatterino.chatterino.desktop .packaging/
-          cp chatterino/resources/icon.png .packaging/
+          mkdir dist
+          cp chatterino/build/bin/chatterino dist/chatterino-arch-linux-x86_64
+          cp chatterino/resources/com.chatterino.chatterino.desktop dist/
+          cp chatterino/resources/icon.png dist/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: arch-linux
-          path: .packaging
+          path: dist/
 
   release:
     needs: ["build-arch"]
