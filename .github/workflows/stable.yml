@@ -39,6 +39,7 @@ jobs:
           sudo pacman -Sy
           sudo pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-5compat' 'qt6-svg' 'libnotify'
           sudo pacman -S --noconfirm 'git' 'boost' 'cmake' 'benchmark'
+          sudo pacman -S --noconfirm 'clang'
 
       - uses: actions/checkout@v4
 
@@ -49,13 +50,18 @@ jobs:
           submodules: recursive
           path: chatterino
 
-      - name: Create build directory
-        run: mkdir build
+      - name: Prepare
+        run: |
+          echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
+          mkdir build
         working-directory: chatterino
 
       - name: Configure
         run: |
           cmake \
+            -DCMAKE_C_COMPILER=clang \
+            -DCMAKE_CXX_COMPILER=clang++ \
+            -DCMAKE_BUILD_RPATH_USE_ORIGIN=On \
             -DCMAKE_BUILD_TYPE=Release \
             -DBUILD_APP=On \
             -DBUILD_TESTS=Off \
