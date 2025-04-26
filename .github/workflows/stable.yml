@@ -113,13 +113,15 @@ jobs:
         working-directory: release-artifacts
 
       - id: prevrelease
-        uses: pozetroninc/github-action-get-latest-release@master
+        uses: pajlada/github-action-get-latest-release@3565c30169a63b650084b700a3b9127877a15d48
         continue-on-error: true
         with:
           owner: Chatterino
           repo: pkg
           excludes: prerelease, draft
           token: ${{ secrets.GITHUB_TOKEN }}
+          title: 'Stable'
+          asset: 'chatterino-arch-linux-x86_64.tar.gz'
 
       - uses: dsaltares/fetch-gh-release-asset@master
         continue-on-error: true
