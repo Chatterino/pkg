@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - id: prevrelease
-        uses: pajlada/github-action-get-latest-release@8e0872c327a380d2a2f32290552671dda7348b83
+        uses: pajlada/github-action-get-latest-release@3565c30169a63b650084b700a3b9127877a15d48
         continue-on-error: true
         with:
           owner: Chatterino
