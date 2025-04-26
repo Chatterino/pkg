@@ -82,7 +82,7 @@ jobs:
           mkdir .packaging
           cp chatterino/build/bin/chatterino .packaging/chatterino-arch-linux-x86_64
           cp chatterino/resources/com.chatterino.chatterino.desktop .packaging/
-          cp chatterino/icon.png .packaging/
+          cp chatterino/resources/icon.png .packaging/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
