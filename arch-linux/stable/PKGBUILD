@@ -1,0 +1,40 @@
+pkgname=chatterino-stable
+pkgver=1
+pkgrel=1
+pkgdesc='Chatterino Stable'
+arch=('any')
+url=https://chatterino.com
+license=('MIT')
+depends=('qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-5compat' 'qt6-svg' 'libnotify')
+makedepends=('git' 'boost' 'cmake' 'ninja')
+source=("git+https://github.com/Chatterino/chatterino2#tag=${CHATTERINO_TAG}")
+sha256sums=('SKIP')
+
+prepare () {
+    if [ -z "$CHATTERINO_TAG" ]; then
+        echo "you must set the CHATTERINO_TAG env variable"
+        exit
+    fi
+    # lazy
+    git -C "${srcdir}/chatterino2" submodule update --init --recursive
+}
+
+build() {
+    mkdir -p build
+    cmake \
+        -GNinja \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DUSE_SYSTEM_QTKEYCHAIN=On \
+        -DUSE_PRECOMPILED_HEADERS=On \
+        -DCHATTERINO_UPDATER=Off \
+        -DSKIP_JSON_GENERATION=On \
+        -B build \
+        "${srcdir}/chatterino2"
+    cmake --build build
+}
+
+package() {
+    install -Dm755 "build/bin/chatterino" "${pkgdir}/usr/bin/chatterino"
+    install -Dm644 "chatterino2/resources/com.chatterino.chatterino.desktop" "${pkgdir}/usr/share/applications/com.chatterino.chatterino.desktop"
+    install -Dm644 "chatterino2/resources/icon.png" "${pkgdir}/usr/share/pixmaps/com.chatterino.chatterino.png"
+}
