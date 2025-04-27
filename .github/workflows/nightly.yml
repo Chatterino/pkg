@@ -53,14 +53,14 @@ jobs:
           chmod -R 777 /__w/pkg/pkg/arch-linux/nightly
           sudo -unobody --preserve-env makepkg
           namcap PKGBUILD
-          namcap chatterino-nightly-1-1-any.pkg.tar.zst
+          namcap chatterino-nightly-1-1-x86_64.pkg.tar.zst
         working-directory: arch-linux/nightly
 
       - name: Package
         run: |
-          tar xvf chatterino-nightly-1-1-any.pkg.tar.zst
+          tar xvf chatterino-nightly-1-1-x86_64.pkg.tar.zst
           mkdir dist
-          cp chatterino-nightly-1-1-any.pkg.tar.zst dist/chatterino-arch-linux-x86_64.tar.zst
+          cp chatterino-nightly-1-1-x86_64.pkg.tar.zst dist/chatterino-arch-linux-x86_64.tar.zst
           cp ./usr/bin/chatterino dist/chatterino-arch-linux-x86_64
           cp ./usr/share/applications/com.chatterino.chatterino.desktop dist/
           cp ./usr/share/pixmaps/com.chatterino.chatterino.png dist/icon.png
