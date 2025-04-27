@@ -60,14 +60,14 @@ jobs:
           chmod -R 777 /__w/pkg/pkg/arch-linux/stable
           sudo -unobody --preserve-env makepkg
           namcap PKGBUILD
-          namcap chatterino-stable-1-1-any.pkg.tar.zst
+          namcap chatterino-stable-1-1-x86_64.pkg.tar.zst
         working-directory: arch-linux/stable
 
       - name: Package
         run: |
-          tar xvf chatterino-stable-1-1-any.pkg.tar.zst
+          tar xvf chatterino-stable-1-1-x86_64.pkg.tar.zst
           mkdir dist
-          cp chatterino-stable-1-1-any.pkg.tar.zst dist/chatterino-arch-linux-x86_64.tar.zst
+          cp chatterino-stable-1-1-x86_64.pkg.tar.zst dist/chatterino-arch-linux-x86_64.tar.zst
           cp ./usr/bin/chatterino dist/chatterino-arch-linux-x86_64
           cp ./usr/share/applications/com.chatterino.chatterino.desktop dist/
           cp ./usr/share/pixmaps/com.chatterino.chatterino.png dist/icon.png
