@@ -1,0 +1,15 @@
+/chatterino-nightly-*-*-*.pkg.tar.zst
+/chatterino2/
+/crash-handler/
+/expected-lite/
+/libcommuni/
+/lua/
+/magic_enum/
+/miniaudio/
+/rapidjson/
+/sanitizers-cmake/
+/serialize/
+/settings/
+/signals/
+/sol2/
+/websocketpp/

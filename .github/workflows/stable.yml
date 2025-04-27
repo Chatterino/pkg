@@ -1,5 +1,5 @@
 ---
-name: Stable
+name: Build & Release Stable
 
 on:
   pull_request:
@@ -23,11 +23,13 @@ concurrency:
 env:
   CHATTERINO_TAG: ${{ inputs.tag != '' && inputs.tag || 'v2.5.3' }}
   CHATTERINO_SKIP_DATE_GEN: 1
+  CC: clang
+  CXX: clang++
 
 jobs:
-  build-arch:
+  build-stable-arch-linux:
     # needs: ["test-arch"]
-    name: "Build Arch Linux"
+    name: "Build Stable Arch Linux"
     runs-on: ubuntu-latest
     container: archlinux:base-devel
     strategy:
@@ -36,10 +38,9 @@ jobs:
     steps:
       - name: Install dependencies
         run: |
-          sudo pacman -Sy
-          sudo pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-5compat' 'qt6-svg' 'libnotify'
-          sudo pacman -S --noconfirm 'git' 'boost' 'cmake' 'benchmark'
-          sudo pacman -S --noconfirm 'clang'
+          pacman -Sy
+          pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-5compat' 'qt6-svg' 'libnotify'
+          pacman -S --noconfirm 'git' 'boost' 'cmake' 'ninja' 'clang' 'namcap'
 
       - uses: actions/checkout@v4
 
@@ -47,52 +48,39 @@ jobs:
         with:
           repository: Chatterino/chatterino2
           ref: ${{ env.CHATTERINO_TAG }}
-          submodules: recursive
           path: chatterino
 
       - name: Prepare
         run: |
           echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
-          mkdir build
         working-directory: chatterino
-
-      - name: Configure
-        run: |
-          cmake \
-            -DCMAKE_C_COMPILER=clang \
-            -DCMAKE_CXX_COMPILER=clang++ \
-            -DCMAKE_BUILD_RPATH_USE_ORIGIN=On \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DBUILD_APP=On \
-            -DBUILD_TESTS=Off \
-            -DBUILD_BENCHMARKS=Off \
-            -DCHATTERINO_UPDATER=Off \
-            -DUSE_SYSTEM_QTKEYCHAIN=On \
-            -DSKIP_JSON_GENERATION=On \
-            ..
-        working-directory: chatterino/build
 
       - name: Build
         run: |
-          cmake --build . -j $(nproc)
-        working-directory: chatterino/build
+          chmod -R 777 /__w/pkg/pkg/arch-linux/stable
+          sudo -unobody --preserve-env makepkg
+          namcap PKGBUILD
+          namcap chatterino-stable-1-1-any.pkg.tar.zst
+        working-directory: arch-linux/stable
 
       - name: Package
         run: |
+          tar xvf chatterino-stable-1-1-any.pkg.tar.zst
           mkdir dist
-          cp chatterino/build/bin/chatterino dist/chatterino-arch-linux-x86_64
-          cp chatterino/resources/com.chatterino.chatterino.desktop dist/
-          cp chatterino/resources/icon.png dist/
+          cp ./usr/bin/chatterino dist/chatterino-arch-linux-x86_64
+          cp ./usr/share/applications/com.chatterino.chatterino.desktop dist/
+          cp ./usr/share/pixmaps/com.chatterino.chatterino.png dist/icon.png
+        working-directory: arch-linux/stable
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: arch-linux
-          path: dist/
+          path: arch-linux/stable/dist/
 
   release:
-    needs: ["build-arch"]
-    name: "Release"
+    needs: ["build-stable-arch-linux"]
+    name: "Release Stable"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
