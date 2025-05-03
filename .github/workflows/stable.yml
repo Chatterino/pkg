@@ -72,6 +72,7 @@ jobs:
           cp ./usr/bin/chatterino dist/chatterino-arch-linux-x86_64
           cp ./usr/share/applications/com.chatterino.chatterino.desktop dist/
           cp ./usr/share/pixmaps/com.chatterino.chatterino.png dist/icon.png
+          cp ./usr/share/licenses/chatterino/LICENSE dist/
         working-directory: arch-linux/stable
 
       - name: Upload artifact
