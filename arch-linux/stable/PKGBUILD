@@ -37,4 +37,5 @@ package() {
     install -Dm755 "build/bin/chatterino" "${pkgdir}/usr/bin/chatterino"
     install -Dm644 "chatterino2/resources/com.chatterino.chatterino.desktop" "${pkgdir}/usr/share/applications/com.chatterino.chatterino.desktop"
     install -Dm644 "chatterino2/resources/icon.png" "${pkgdir}/usr/share/pixmaps/com.chatterino.chatterino.png"
+    install -Dm644 "chatterino2/LICENSE" "${pkgdir}/usr/share/licenses/chatterino/LICENSE"
 }
