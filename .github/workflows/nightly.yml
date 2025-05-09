@@ -131,7 +131,7 @@ jobs:
           fi
 
       - name: Create release
-        if: steps.compare.outputs.has_changes == 'true' && (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        if: steps.compare.outputs.has_changes == 'true' && ((github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main')
         uses: ncipollo/release-action@v1.16.0
         with:
           replacesArtifacts: true
