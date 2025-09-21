@@ -7,7 +7,7 @@ on:
     inputs:
       tag:
         description: 'Chatterino tag to pull'
-        default: 'v2.5.3'
+        default: 'v2.5.4'
         required: true
         type: string
   schedule:
@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CHATTERINO_TAG: ${{ inputs.tag != '' && inputs.tag || 'v2.5.3' }}
+  CHATTERINO_TAG: ${{ inputs.tag != '' && inputs.tag || 'v2.5.4' }}
   CHATTERINO_SKIP_DATE_GEN: 1
   CC: clang
   CXX: clang++
