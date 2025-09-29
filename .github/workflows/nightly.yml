@@ -33,7 +33,7 @@ jobs:
         run: |
           pacman -Sy
           pacman -Su --noconfirm
-          pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-5compat' 'qt6-svg' 'libnotify'
+          pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-svg' 'libnotify'
           pacman -S --noconfirm 'git' 'boost' 'cmake' 'ninja' 'clang' 'namcap'
 
       - uses: actions/checkout@v4
