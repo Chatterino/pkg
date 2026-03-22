@@ -5,7 +5,7 @@ pkgdesc='Chatterino Stable'
 arch=('x86_64')
 url=https://chatterino.com
 license=('MIT')
-depends=('qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-5compat' 'qt6-svg' 'libnotify')
+depends=('qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-svg' 'libnotify' 'hunspell')
 makedepends=('git' 'boost' 'cmake' 'ninja')
 source=("git+https://github.com/Chatterino/chatterino2#tag=${CHATTERINO_TAG}")
 sha256sums=('SKIP')
@@ -28,6 +28,7 @@ build() {
         -DUSE_PRECOMPILED_HEADERS=On \
         -DCHATTERINO_UPDATER=Off \
         -DSKIP_JSON_GENERATION=On \
+        -DCHATTERINO_SPELLCHECK=On \
         -B build \
         "${srcdir}/chatterino2"
     cmake --build build
