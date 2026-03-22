@@ -7,7 +7,7 @@ on:
     inputs:
       tag:
         description: 'Chatterino tag to pull'
-        default: 'v2.5.4'
+        default: 'v2.5.5'
         required: true
         type: string
   schedule:
@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CHATTERINO_TAG: ${{ inputs.tag != '' && inputs.tag || 'v2.5.4' }}
+  CHATTERINO_TAG: ${{ inputs.tag != '' && inputs.tag || 'v2.5.5' }}
   CHATTERINO_SKIP_DATE_GEN: 1
   CC: clang
   CXX: clang++
@@ -40,7 +40,7 @@ jobs:
         run: |
           pacman -Sy
           pacman -Su --noconfirm
-          pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-5compat' 'qt6-svg' 'libnotify'
+          pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-svg' 'libnotify' 'hunspell'
           pacman -S --noconfirm 'git' 'boost' 'cmake' 'ninja' 'clang' 'namcap'
 
       - uses: actions/checkout@v4
