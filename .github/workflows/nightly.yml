@@ -5,7 +5,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   push:
     branches:
       - main
@@ -33,7 +33,7 @@ jobs:
         run: |
           pacman -Sy
           pacman -Su --noconfirm
-          pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-svg' 'libnotify' 'hunspell'
+          pacman -S --noconfirm 'qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qt6-svg' 'libnotify' 'hunspell'
           pacman -S --noconfirm 'git' 'boost' 'cmake' 'ninja' 'clang' 'namcap'
 
       - uses: actions/checkout@v4
@@ -109,16 +109,16 @@ jobs:
           repo: pkg
           excludes: prerelease, draft
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: 'Nightly'
-          asset: 'chatterino-arch-linux-x86_64'
+          title: "Nightly"
+          asset: "chatterino-arch-linux-x86_64"
 
       - uses: dsaltares/fetch-gh-release-asset@master
         continue-on-error: true
         with:
-          repo: 'Chatterino/pkg'
+          repo: "Chatterino/pkg"
           version: ${{ steps.prevrelease.outputs.id }}
           file: "chatterino-arch-linux-x86_64"
-          target: 'prev-release/chatterino-arch-linux-x86_64'
+          target: "prev-release/chatterino-arch-linux-x86_64"
 
       - name: Compare
         id: compare
