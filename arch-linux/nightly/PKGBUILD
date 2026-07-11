@@ -5,7 +5,7 @@ pkgdesc='Chatterino Nightly'
 arch=('x86_64')
 url=https://chatterino.com
 license=('MIT')
-depends=('qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-svg' 'libnotify' 'hunspell')
+depends=('qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qt6-svg' 'libnotify' 'hunspell')
 makedepends=('git' 'boost' 'cmake' 'ninja')
 source=("git+https://github.com/Chatterino/chatterino2"
         "git+https://github.com/arsenm/sanitizers-cmake"
@@ -41,7 +41,6 @@ prepare () {
     # Disable updating of unused submodules
     git -C "${srcdir}/chatterino2" config submodule.lib/googletest.update "none"
     git -C "${srcdir}/chatterino2" config submodule.lib/WinToast.update "none"
-    git -C "${srcdir}/chatterino2" config submodule.lib/qtkeychain.update "none"
     git -C "${srcdir}/chatterino2" submodule init
     git -C "${srcdir}/chatterino2" config submodule.cmake/sanitizers-cmake.url "$srcdir/sanitizers-cmake"
     git -C "${srcdir}/chatterino2" config submodule.lib/libcommuni.url "$srcdir/libcommuni"
@@ -64,7 +63,6 @@ build() {
     cmake \
         -GNinja \
         -DCMAKE_BUILD_TYPE=Release \
-        -DUSE_SYSTEM_QTKEYCHAIN=On \
         -DUSE_PRECOMPILED_HEADERS=On \
         -DCHATTERINO_UPDATER=Off \
         -DSKIP_JSON_GENERATION=On \
