@@ -3,6 +3,7 @@ pkgver=1
 pkgrel=1
 pkgdesc='Chatterino Stable'
 arch=('x86_64')
+options=('!debug')
 url=https://chatterino.com
 license=('MIT')
 depends=('qt6-base' 'qt6-tools' 'boost-libs' 'openssl' 'qt6-imageformats' 'qtkeychain-qt6' 'qt6-svg' 'libnotify' 'hunspell')
